@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block title %}{{ t.nav_orders }}{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h1>{{ t.nav_orders }}</h1>
+    <p>{% if lang == 'fr' %}Création, assignation et suivi des livraisons{% else %}Create, assign and track your deliveries{% endif %}</p>
+</div>
+
+<div class="stats-grid cols-4">
+    <div class="stat-card blue">
+        <span class="stat-label">{{ t.total }}</span>
+        <span class="stat-number">{{ orders | length }}</span>
+    </div>
+    <div class="stat-card yellow">
+        <span class="stat-label">{{ t.preparation }}</span>
+        <span class="stat-number">{{ orders | selectattr('status', 'equalto', 'préparation') | list | length }}</span>
+    </div>
+    <div class="stat-card orange">
+        <span class="stat-label">{{ t.on_delivery }}</span>
+        <span class="stat-number">{{ orders | selectattr('status', 'equalto', 'en livraison') | list | length }}</span>
+    </div>
+    <div class="stat-card green">
+        <span class="stat-label">{{ t.delivered }}</span>
+        <span class="stat-number">{{ orders | selectattr('status', 'equalto', 'livré') | list | length }}</span>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">{% if lang == 'fr' %}Nouvelle commande{% else %}New order{% endif %}</span>
+    </div>
+    <form action="{{ url_for('add_order') }}" method="POST" class="form-grid">
+        <div class="field">
+            <label>{% if lang == 'fr' %}Nom du client{% else %}Customer name{% endif %}</label>
+            <input type="text" name="client" placeholder="Jean Dupont" required>
+        </div>
+        <div class="field">
+            <label>{% if lang == 'fr' %}Téléphone{% else %}Phone{% endif %}</label>
+            <input type="text" name="phone" placeholder="06 12 34 56 78" required>
+        </div>
+        <div class="field span-2">
+            <label>{% if lang == 'fr' %}Adresse de livraison{% else %}Delivery address{% endif %}</label>
+            <input type="text" name="address" placeholder="12 rue de la Paix, Paris" required>
+        </div>
+        <div class="field">
+            <label>{% if lang == 'fr' %}Montant (€){% else %}Amount (€){% endif %}</label>
+            <input type="number" name="amount" placeholder="0.00" step="0.01" min="0" required>
+        </div>
+        <div class="field">
+            <label>{% if lang == 'fr' %}Paiement{% else %}Payment{% endif %}</label>
+            <select name="payment" required>
+                <option value="" disabled selected>— {% if lang == 'fr' %}Choisir{% else %}Choose{% endif %}</option>
+                <option value="espèces">💵 {% if lang == 'fr' %}Espèces{% else %}Cash{% endif %}</option>
+                <option value="carte">💳 {% if lang == 'fr' %}Carte{% else %}Card{% endif %}</option>
+            </select>
+        </div>
+        <div class="span-2">
+            <button type="submit" class="btn btn-primary">{% if lang == 'fr' %}+ Créer la commande{% else %}+ Create order{% endif %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">{% if lang == 'fr' %}Suivi{% else %}Tracking{% endif %}</span>
+        <span class="card-badge">{{ orders | length }} {% if lang == 'fr' %}commande{% else %}order{% endif %}{{ 's' if orders | length > 1 else '' }}</span>
+    </div>
+
+    {% if orders %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% if lang == 'fr' %}Client{% else %}Customer{% endif %}</th>
+                    <th>{% if lang == 'fr' %}Adresse{% else %}Address{% endif %}</th>
+                    <th>{% if lang == 'fr' %}Montant{% else %}Amount{% endif %}</th>
+                    <th>{% if lang == 'fr' %}Paiement{% else %}Payment{% endif %}</th>
+                    <th>{% if lang == 'fr' %}Statut{% else %}Status{% endif %}</th>
+                    <th>{% if lang == 'fr' %}Livreur{% else %}Driver{% endif %}</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in orders %}
+                <tr>
+                    <td class="cell-mono">#{{ o.id }}</td>
+                    <td>
+                        <div class="cell-with-avatar">
+                            <div class="avatar">{{ o.client[:2] }}</div>
+                            <div class="avatar-info">
+                                <span class="avatar-name">{{ o.client }}</span>
+                                <span class="avatar-sub">{{ o.phone }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="cell-dim" style="max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ o.address }}</td>
+                    <td class="cell-amount">{{ "%.2f"|format(o.amount) }} €</td>
+                    <td>
+                        {% if o.payment == 'carte' %}<span class="badge badge-blue">💳 {% if lang == 'fr' %}carte{% else %}card{% endif %}</span>
+                        {% else %}<span class="badge badge-cash">💵 {% if lang == 'fr' %}espèces{% else %}cash{% endif %}</span>{% endif %}
+                    </td>
+                    <td>
+                        {% if o.status == 'préparation' %}<span class="badge badge-yellow">{{ t.preparation }}</span>
+                        {% elif o.status == 'en livraison' %}<span class="badge badge-orange">{{ t.on_delivery }}</span>
+                        {% else %}<span class="badge badge-green">{{ t.delivered }}</span>{% endif %}
+                    </td>
+                    <td>
+                        {% if o.driver_name %}
+                            <span class="driver-chip">✓ {{ o.driver_name }}</span>
+                        {% elif o.status != 'livré' %}
+                            {% if available_drivers %}
+                            <form action="{{ url_for('assign_order', order_id=o.id) }}" method="POST" class="assign-form">
+                                <select name="driver_id" required>
+                                    <option value="" disabled selected>—</option>
+                                    {% for d in available_drivers %}
+                                    <option value="{{ d.id }}">{{ d.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-success btn-sm">{{ t.assign }}</button>
+                            </form>
+                            {% else %}<span class="no-driver">{{ t.no_driver }}</span>{% endif %}
+                        {% else %}<span class="cell-dim">—</span>{% endif %}
+                    </td>
+                    <td class="actions">
+                        {% if o.status == 'en livraison' %}
+                            <a href="{{ url_for('update_order_status', order_id=o.id, status='livré') }}" class="btn btn-success btn-sm">{{ t.mark_delivered }}</a>
+                        {% elif o.status == 'préparation' %}
+                            {% if o.driver_id %}
+                                <a href="{{ url_for('update_order_status', order_id=o.id, status='en livraison') }}" class="btn btn-secondary btn-sm">{{ t.on_the_way }}</a>
+                            {% else %}
+                                <span class="btn btn-secondary btn-sm btn-disabled">{{ t.on_the_way }}</span>
+                            {% endif %}
+                        {% endif %}
+                        <a href="{{ url_for('delete_order', order_id=o.id) }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('{% if lang == 'fr' %}Supprimer cette commande ?{% else %}Delete this order?{% endif %}')">{{ t.delete }}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">📦</div>
+        <p>{% if lang == 'fr' %}Aucune commande — créez la première{% else %}No orders yet — create the first one{% endif %}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

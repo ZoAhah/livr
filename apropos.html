@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}{{ t.nav_about }}{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h1>{{ t.nav_about }}</h1>
+    <p>{% if lang == 'fr' %}L'histoire et la mission de LIVR{% else %}The story and mission of LIVR{% endif %}</p>
+</div>
+
+<div class="content-page">
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">{% if lang == 'fr' %}Notre mission{% else %}Our mission{% endif %}</span>
+        </div>
+        <h2>{% if lang == 'fr' %}Reprendre le contrôle de vos livraisons{% else %}Take back control of your deliveries{% endif %}</h2>
+        <p>
+            {% if lang == 'fr' %}
+            LIVR est né d'un constat simple : les solutions de livraison externalisées prélèvent des commissions importantes sur chaque commande. Pour un restaurant performant, cela représente plusieurs milliers d'euros de marge sacrifiés chaque mois.<br><br>
+            Notre conviction : si vous avez vos propres livreurs, vous n'avez besoin de personne d'autre.<br>
+            Juste d'un outil simple pour tout coordonner.
+            {% else %}
+            LIVR was born from a simple observation: outsourced delivery solutions charge significant commissions on every order. For a high-performing restaurant, that means thousands of euros in lost margin every month.<br><br>
+            Our belief: if you have your own drivers, you don't need anyone else.
+            Just a simple tool to coordinate everything.
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">{% if lang == 'fr' %}Comment ça fonctionne{% else %}How it works{% endif %}</span>
+        </div>
+        <div class="about-timeline">
+            <div class="timeline-item">
+                <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+                <div class="timeline-content">
+                    <div class="timeline-step">{% if lang == 'fr' %}Étape 01{% else %}Step 01{% endif %}</div>
+                    <div class="timeline-text">{% if lang == 'fr' %}Créez votre compte restaurant en 30 secondes. Vos données sont isolées — personne d'autre n'y a accès.{% else %}Create your restaurant account in 30 seconds. Your data is isolated — no one else can access it.{% endif %}</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+                <div class="timeline-content">
+                    <div class="timeline-step">{% if lang == 'fr' %}Étape 02{% else %}Step 02{% endif %}</div>
+                    <div class="timeline-text">{% if lang == 'fr' %}Ajoutez vos livreurs avec leur véhicule. Leur statut se met à jour instantanément.{% else %}Add your drivers with their vehicle. Their status updates instantly.{% endif %}</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+                <div class="timeline-content">
+                    <div class="timeline-step">{% if lang == 'fr' %}Étape 03{% else %}Step 03{% endif %}</div>
+                    <div class="timeline-text">{% if lang == 'fr' %}Créez une commande en quelques secondes : client, adresse, montant, paiement.{% else %}Create an order in seconds: client, address, amount, payment.{% endif %}</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+                <div class="timeline-content">
+                    <div class="timeline-step">{% if lang == 'fr' %}Étape 04{% else %}Step 04{% endif %}</div>
+                    <div class="timeline-text">{% if lang == 'fr' %}Assignez un livreur en 1 clic. Le livreur repasse automatiquement disponible à la livraison.{% else %}Assign a driver in 1 click. The driver is automatically set back to available on delivery.{% endif %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">{% if lang == 'fr' %}Feuille de route{% else %}Roadmap{% endif %}</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge badge-green">✓</span><span class="cell-dim">{% if lang == 'fr' %}Gestion des livreurs et commandes{% else %}Driver and order management{% endif %}</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge badge-green">✓</span><span class="cell-dim">{% if lang == 'fr' %}Authentification multi-restaurant{% else %}Multi-restaurant authentication{% endif %}</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge badge-green">✓</span><span class="cell-dim">{% if lang == 'fr' %}Interface bilingue FR / EN{% else %}Bilingual FR / EN interface{% endif %}</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge badge-yellow">{% if lang == 'fr' %}Bientôt{% else %}Soon{% endif %}</span><span class="cell-dim">{% if lang == 'fr' %}Notifications SMS client{% else %}Client SMS notifications{% endif %}</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge badge-yellow">{% if lang == 'fr' %}Bientôt{% else %}Soon{% endif %}</span><span class="cell-dim">{% if lang == 'fr' %}Analytics et rapports{% else %}Analytics and reports{% endif %}</span></div>
+            <div style="display:flex; align-items:center; gap:0.75rem;"><span class="badge" style="background:var(--surface-3);color:var(--text-dim);border-color:var(--border);">{% if lang == 'fr' %}Prévu{% else %}Planned{% endif %}</span><span class="cell-dim">{% if lang == 'fr' %}Tracking GPS temps réel{% else %}Real-time GPS tracking{% endif %}</span></div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
