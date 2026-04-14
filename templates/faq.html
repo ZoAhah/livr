@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% block title %}FAQ{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h1>FAQ</h1>
+    <p>{% if lang == 'fr' %}Les réponses à toutes vos questions{% else %}Answers to all your questions{% endif %}</p>
+</div>
+
+<div class="content-page" style="max-width:760px;">
+
+    <!-- ESSAI GRATUIT -->
+    <div class="faq-section">
+        <div class="faq-section-title">
+            🎉 {% if lang == 'fr' %}Essai gratuit{% else %}Free trial{% endif %}
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}L'essai gratuit dure combien de temps ?{% else %}How long does the free trial last?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    L'essai gratuit dure <strong>14 jours</strong>, sans engagement et sans carte bancaire. Vous avez accès à toutes les fonctionnalités dès la création de votre compte.
+                {% else %}
+                    The free trial lasts <strong>14 days</strong>, with no commitment and no credit card required. You get full access to all features from the moment you create your account.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Faut-il une carte bancaire pour l'essai ?{% else %}Do I need a credit card for the trial?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == "fr" %}
+                    Aucune carte bancaire n'est requise pour démarrer l'essai. À l'issue des 14 jours, une <strong>empreinte bancaire</strong> sera demandée pour activer votre abonnement. Cette empreinte garantit la sécurité du service et évite la création de comptes multiples pour profiter de l'essai en illimité. Vous ne serez débité qu'après avoir choisi votre plan.
+                {% else %}
+                    No credit card is required to start the trial. After 14 days, a <strong>card fingerprint</strong> will be requested to activate your subscription. This fingerprint secures the service and prevents multiple accounts from being created to exploit the free trial indefinitely. You will only be charged after choosing your plan.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Que se passe-t-il à la fin de l'essai ?{% else %}What happens at the end of the trial?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    À la fin des 14 jours, vous recevrez une notification pour choisir un abonnement. Vos données (livreurs, commandes) sont conservées et accessibles dès que vous activez un plan.
+                {% else %}
+                    At the end of 14 days, you'll receive a notification to choose a subscription. Your data (drivers, orders) is kept and accessible as soon as you activate a plan.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}L'essai donne accès à toutes les fonctionnalités ?{% else %}Does the trial include all features?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == "fr" %}
+                    L'essai gratuit donne accès aux fonctionnalités du <strong>plan Starter</strong> : jusqu'à 3 livreurs, commandes illimitées, dashboard complet. C'est suffisant pour tester l'outil dans de vraies conditions.
+                {% else %}
+                    The free trial gives access to <strong>Starter plan</strong> features: up to 3 drivers, unlimited orders, full dashboard. It's enough to test the tool under real conditions.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- TARIFS -->
+    <div class="faq-section">
+        <div class="faq-section-title">
+            💳 {% if lang == 'fr' %}Tarifs & abonnement{% else %}Pricing & subscription{% endif %}
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Quels sont vos tarifs ?{% else %}What are your prices?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    LIVR propose 3 plans :<br><br>
+                    • <strong>Starter — 29€/mois</strong> : jusqu'à 3 livreurs, commandes illimitées<br>
+                    • <strong>Standard — 49€/mois</strong> : livreurs illimités, analytics, support prioritaire<br>
+                    • <strong>Premium — 99€/mois</strong> : multi-établissements, tracking GPS (bientôt), compte manager dédié
+                {% else %}
+                    LIVR offers 3 plans:<br><br>
+                    • <strong>Starter — €29/month</strong>: up to 3 drivers, unlimited orders<br>
+                    • <strong>Standard — €49/month</strong>: unlimited drivers, analytics, priority support<br>
+                    • <strong>Premium — €99/month</strong>: multi-location, GPS tracking (coming soon), dedicated account manager
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Y a-t-il un engagement de durée ?{% else %}Is there a minimum commitment?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Non. Tous les abonnements sont <strong>sans engagement</strong>. Vous pouvez annuler à tout moment depuis votre espace, et l'accès reste actif jusqu'à la fin de la période en cours.
+                {% else %}
+                    No. All subscriptions are <strong>month-to-month</strong>. You can cancel at any time from your account, and access remains active until the end of the current period.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Puis-je changer de plan ?{% else %}Can I change my plan?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Oui. Vous pouvez passer à un plan supérieur ou inférieur à tout moment. Le changement prend effet immédiatement, et la facturation est ajustée au prorata.
+                {% else %}
+                    Yes. You can upgrade or downgrade at any time. Changes take effect immediately and billing is adjusted on a pro-rata basis.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Comment fonctionne la facturation ?{% else %}How does billing work?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    La facturation est mensuelle, prélevée automatiquement par carte bancaire. Vous recevez une facture par email à chaque renouvellement.
+                {% else %}
+                    Billing is monthly, automatically charged to your credit card. You receive an invoice by email at each renewal.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Y a-t-il des frais cachés ou des commissions ?{% else %}Are there hidden fees or commissions?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Absolument pas. LIVR fonctionne sur un abonnement fixe mensuel. Nous ne prélevons <strong>aucune commission</strong> sur vos commandes — c'est d'ailleurs notre raison d'être.
+                {% else %}
+                    Absolutely not. LIVR works on a fixed monthly subscription. We take <strong>no commission</strong> on your orders — that's actually our whole reason for existing.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- FONCTIONNALITES -->
+    <div class="faq-section">
+        <div class="faq-section-title">
+            ⚙️ {% if lang == 'fr' %}Fonctionnalités{% else %}Features{% endif %}
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Combien de livreurs puis-je ajouter ?{% else %}How many drivers can I add?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Le plan Starter est limité à <strong>3 livreurs</strong>. Les plans Standard et Premium n'ont aucune limite.
+                {% else %}
+                    The Starter plan is limited to <strong>3 drivers</strong>. Standard and Premium plans have no limit.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Les commandes sont-elles limitées ?{% else %}Are orders limited?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Non. Le nombre de commandes est <strong>illimité sur tous les plans</strong>, y compris pendant l'essai gratuit.
+                {% else %}
+                    No. The number of orders is <strong>unlimited on all plans</strong>, including during the free trial.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}L'application fonctionne-t-elle sur téléphone ?{% else %}Does the app work on mobile?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Oui. LIVR est une application web responsive, accessible depuis n'importe quel navigateur — PC, tablette ou smartphone. Aucune installation requise.
+                {% else %}
+                    Yes. LIVR is a responsive web app accessible from any browser — desktop, tablet, or smartphone. No installation required.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Puis-je gérer plusieurs restaurants ?{% else %}Can I manage multiple restaurants?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    La gestion multi-établissements est disponible sur le plan Premium. Pour les plans Starter et Standard, chaque compte correspond à un restaurant.
+                {% else %}
+                    Multi-location management is available on the Premium plan. For Starter and Standard plans, each account corresponds to one restaurant.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Le tracking GPS est-il disponible ?{% else %}Is GPS tracking available?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Le tracking GPS est en cours de développement et sera disponible sur le plan Premium. Vous serez notifié dès sa disponibilité.
+                {% else %}
+                    GPS tracking is in development and will be available on the Premium plan. You'll be notified as soon as it's available.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- DONNEES & SECURITE -->
+    <div class="faq-section">
+        <div class="faq-section-title">
+            🔐 {% if lang == 'fr' %}Données & sécurité{% else %}Data & security{% endif %}
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Mes données sont-elles partagées avec d'autres restaurants ?{% else %}Is my data shared with other restaurants?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Non. Chaque restaurant dispose de son propre espace isolé. Vos livreurs, commandes et données sont strictement privés et inaccessibles aux autres utilisateurs.
+                {% else %}
+                    No. Each restaurant has its own isolated space. Your drivers, orders, and data are strictly private and inaccessible to other users.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Que deviennent mes données si j'annule ?{% else %}What happens to my data if I cancel?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Vos données sont conservées pendant <strong>30 jours</strong> après annulation. Passé ce délai, elles sont définitivement supprimées. Vous pouvez demander une exportation avant suppression.
+                {% else %}
+                    Your data is kept for <strong>30 days</strong> after cancellation. After that, it is permanently deleted. You can request an export before deletion.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}LIVR est-il conforme au RGPD ?{% else %}Is LIVR GDPR compliant?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Oui. LIVR respecte le Règlement Général sur la Protection des Données (RGPD). Vos données sont hébergées en Europe et ne sont jamais revendues à des tiers.
+                {% else %}
+                    Yes. LIVR complies with the General Data Protection Regulation (GDPR). Your data is hosted in Europe and is never sold to third parties.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="faq-section">
+        <div class="faq-section-title">
+            💬 Support
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Comment contacter le support ?{% else %}How do I contact support?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Vous pouvez nous contacter via le formulaire de contact dans l'application. Nous répondons sous 24h en semaine. Le plan Premium bénéficie d'un support prioritaire avec un manager dédié.
+                {% else %}
+                    You can contact us via the contact form in the app. We respond within 24 hours on weekdays. The Premium plan includes priority support with a dedicated manager.
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggle(this)">
+                {% if lang == 'fr' %}Vous n'avez pas trouvé votre réponse ?{% else %}Didn't find your answer?{% endif %}
+                <span class="faq-arrow">›</span>
+            </div>
+            <div class="faq-answer">
+                {% if lang == 'fr' %}
+                    Pas de problème ! Envoyez-nous un message via la page <a href="{{ url_for('contact') }}" style="color:var(--accent);">Contact</a> et nous vous répondrons rapidement.
+                {% else %}
+                    No problem! Send us a message via the <a href="{{ url_for('contact') }}" style="color:var(--accent);">Contact</a> page and we'll get back to you quickly.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggle(el) {
+    const answer = el.nextElementSibling;
+    const arrow  = el.querySelector('.faq-arrow');
+    const isOpen = answer.classList.contains('open');
+
+    // ferme tous les autres
+    document.querySelectorAll('.faq-answer.open').forEach(a => {
+        a.classList.remove('open');
+        a.previousElementSibling.querySelector('.faq-arrow').style.transform = 'rotate(0deg)';
+    });
+
+    if (!isOpen) {
+        answer.classList.add('open');
+        arrow.style.transform = 'rotate(90deg)';
+    }
+}
+</script>
+
+{% endblock %}

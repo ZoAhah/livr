@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{ t.nav_contact }}{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>{{ t.nav_contact }}</h1>
+    <p>{% if lang == 'fr' %}Une question ? On vous répond rapidement.{% else %}A question? We'll get back to you quickly.{% endif %}</p>
+</div>
+<div class="content-page">
+    {% if sent %}
+    <div class="sent-box">
+        <h3>✅ {% if lang == 'fr' %}Message envoyé !{% else %}Message sent!{% endif %}</h3>
+        <p>{% if lang == 'fr' %}Nous vous répondrons dans les plus brefs délais.{% else %}We'll get back to you as soon as possible.{% endif %}</p>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="card-header"><span class="card-title">{% if lang == 'fr' %}Envoyer un message{% else %}Send a message{% endif %}</span></div>
+        <form method="POST" class="form-grid">
+            <div class="field">
+                <label>{% if lang == 'fr' %}Votre nom{% else %}Your name{% endif %}</label>
+                <input type="text" name="name" placeholder="Jean Dupont" required>
+            </div>
+            <div class="field">
+                <label>{% if lang == 'fr' %}Votre email{% else %}Your email{% endif %}</label>
+                <input type="email" name="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="field span-2">
+                <label>{% if lang == 'fr' %}Message{% else %}Message{% endif %}</label>
+                <textarea name="message" placeholder="{% if lang == 'fr' %}Décrivez votre question…{% else %}Describe your question…{% endif %}" required></textarea>
+            </div>
+            <div class="span-2">
+                <button type="submit" class="btn btn-primary">{% if lang == 'fr' %}Envoyer{% else %}Send{% endif %}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

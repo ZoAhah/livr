@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVR — {% if lang == 'fr' %}Connexion{% else %}Sign in{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="auth-layout">
+    <div class="auth-box">
+        <a href="{{ url_for('landing') }}" class="auth-back">← {% if lang == "fr" %}Retour à l'accueil{% else %}Back to home{% endif %}</a>
+        <div class="auth-brand">
+            <div class="auth-pill"><span></span><span class="auth-pill-text">LIVR — ops</span></div>
+            <div class="auth-title">{% if lang == 'fr' %}Connexion{% else %}Sign in{% endif %}</div>
+            <div class="auth-sub">{% if lang == 'fr' %}Accédez à votre espace restaurant{% else %}Access your restaurant space{% endif %}</div>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}<div class="flash {{ category }}" style="margin-bottom:1rem">{{ message }}</div>{% endfor %}
+        {% endwith %}
+        <div class="auth-card">
+            <form method="POST" class="auth-fields">
+                <div class="field"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" required autofocus></div>
+                <div class="field"><label>{% if lang == 'fr' %}Mot de passe{% else %}Password{% endif %}</label><input type="password" name="password" placeholder="••••••••" required></div>
+                <button type="submit" class="btn btn-primary auth-btn">{% if lang == 'fr' %}Se connecter{% else %}Sign in{% endif %}</button>
+            </form>
+        </div>
+        <div class="auth-footer">
+            {% if lang == 'fr' %}Pas encore de compte ?{% else %}No account yet?{% endif %}
+            <a href="{{ url_for('register') }}">{% if lang == 'fr' %}Créer un compte{% else %}Create an account{% endif %}</a>
+            &nbsp;·&nbsp;
+            <a href="{{ url_for('set_lang', code='en' if lang == 'fr' else 'fr') }}">{{ t.lang_label }}</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
